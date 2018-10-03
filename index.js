@@ -18,13 +18,24 @@ const couch = new nodeCouchDb({
 const dbname = 'schueler';
 const viewUrl = '_design/v1/_view/id'
 
-couch.listDatabases().then(function (dbs) {
-    console.log(dbs);
-})
-
-
-
 const app = express();
+
+app.get('/', function (req, res) {
+    const htmlSource = fs.readFileSync("views/main.html", "utf8");
+    const styles = fs.readFileSync("views/main.css", "utf8");
+    const responseView = new JSDOM(htmlSource);
+    const doc = responseView.window.document;
+    const head = doc.getElementsByTagName('head')[0];
+    const body = doc.getElementsByTagName('body')[0];
+
+    // add styles to document
+    style = doc.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = styles;
+    head.appendChild(style);
+
+    res.send(responseView.serialize())  
+});
 
 app.get('/lehrer', function (req, res) {
     const htmlSource = fs.readFileSync("views/lehrer/lehrer.html", "utf8");
@@ -32,7 +43,7 @@ app.get('/lehrer', function (req, res) {
     const responseView = new JSDOM(htmlSource);
     const doc = responseView.window.document;
     const head = doc.getElementsByTagName('head')[0];
-    const body = doc.getElementsByTagName('body')[0]
+    const body = doc.getElementsByTagName('body')[0];
 
     // add styles to document
     style = doc.createElement('style');
