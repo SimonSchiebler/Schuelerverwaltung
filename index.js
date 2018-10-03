@@ -15,41 +15,45 @@ const couch = new nodeCouchDb({
     protocol: 'http',
 });
 
-const dbname = 'schueler';
+const SCHUELERDB = 'schueler';
 const viewUrl = '_design/v1/_view/id'
 
-const app = express();
-
-app.get('/', function (req, res) {
+function getMainPage() {
     const htmlSource = fs.readFileSync("views/main.html", "utf8");
     const styles = fs.readFileSync("views/main.css", "utf8");
     const responseView = new JSDOM(htmlSource);
     const doc = responseView.window.document;
     const head = doc.getElementsByTagName('head')[0];
-    const body = doc.getElementsByTagName('body')[0];
 
-    // add styles to document
     style = doc.createElement('style');
     style.type = 'text/css';
     style.innerHTML = styles;
     head.appendChild(style);
+
+    return responseView;
+}
+
+const app = express();
+
+app.get('/', function (req, res) {
+
+    const responseView = getMainPage();
+    const doc = responseView.window.document;
+    const head = doc.getElementsByTagName('head')[0];
+    const body = doc.getElementsByTagName('body')[0];
+
+
 
     res.send(responseView.serialize())  
 });
 
 app.get('/lehrer', function (req, res) {
-    const htmlSource = fs.readFileSync("views/lehrer/lehrer.html", "utf8");
-    const styles = fs.readFileSync("views/lehrer/lehrer.css", "utf8");
-    const responseView = new JSDOM(htmlSource);
+    const responseView = getMainPage(); 
     const doc = responseView.window.document;
     const head = doc.getElementsByTagName('head')[0];
     const body = doc.getElementsByTagName('body')[0];
 
-    // add styles to document
-    style = doc.createElement('style');
-    style.type = 'text/css';
-    style.innerHTML = styles;
-    head.appendChild(style);
+
 
     couch.get('schueler', '_design/v1/_view/id').then((schueler) => {
         const listDiv = doc.getElementById('content');
@@ -63,6 +67,25 @@ app.get('/lehrer', function (req, res) {
 
 
 });
+
+app.get('/neuerSchueler', function (req, res) {
+
+    const responseView = getMainPage();
+    const doc = responseView.window.document;
+    const head = doc.getElementsByTagName('head')[0];
+    const body = doc.getElementsByTagName('body')[0];
+
+    const listDiv = doc.getElementById('content');
+    const schuelerAnlegenDialog = fs.readFileSync('views/templates/schuelerAnlegen.html', 'utf8')
+
+    let nameInput = doc.createElement('div');
+    nameInput.innerHTML = schuelerAnlegenDialog
+    listDiv.appendChild(nameInput)
+
+    res.send(responseView.serialize())
+    
+});
+
 
 app.listen(3000, function () {
     console.log('Server startet on Port 3000')
