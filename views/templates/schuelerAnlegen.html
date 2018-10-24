@@ -1,7 +1,7 @@
 <div class="w3-container w3-blue">
     <h2>Schueler Anlegen</h2>
 </div>
-<form class="w3-container">
+<form id="viewContainer" class="w3-container">
     <p>
         <label>Vorname</label>
         <input class="w3-input" type="text">
@@ -15,6 +15,11 @@
         <input class="w3-input" type="text">
     </p>
     <p>
-        <button class="w3-btn w3-blue">Absenden</button>
+        <button type="button" class="w3-button w3-blue" onclick="javascript:sendData()" >Absenden</button>
     </p>
 </form>
+<script>
+    function sendData() {
+        document.location.href = "/schuelerAnlegen?{name: bla, adresse: bla }";
+    }
+</script>

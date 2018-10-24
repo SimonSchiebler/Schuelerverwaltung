@@ -18,7 +18,7 @@ const couch = new nodeCouchDb({
 const SCHUELERDB = 'schueler';
 const viewUrl = '_design/v1/_view/id'
 
-function addstyles (pageDom, stylepath){
+function addstyles(pageDom, stylepath) {
     const styles = fs.readFileSync(stylepath, 'utf8');
     const head = pageDom.window.document.getElementsByTagName('head')[0];
 
@@ -31,11 +31,11 @@ function addstyles (pageDom, stylepath){
 function getMainPage() {
     const htmlSource = fs.readFileSync("views/main.html", "utf8");
     const menuHTML = fs.readFileSync("views/templates/mainMenu.html", "utf8");
-    
+
     const responseView = new JSDOM(htmlSource);
     const doc = responseView.window.document;
     addstyles(responseView, "views/main.css");
-    
+
     const mainMenu = doc.getElementById('menu');
     mainMenu.classList = "w3-sidebar w3-bar-block";
     mainMenu.innerHTML = menuHTML;
@@ -53,13 +53,11 @@ app.get('/', function (req, res) {
     const head = doc.getElementsByTagName('head')[0];
     const body = doc.getElementsByTagName('body')[0];
 
-
-
-    res.send(responseView.serialize())  
+    res.send(responseView.serialize())
 });
 
 app.get('/lehrer', function (req, res) {
-    const responseView = getMainPage(); 
+    const responseView = getMainPage();
     const doc = responseView.window.document;
     addstyles(responseView, "views/templates/lehrer.css");
     const head = doc.getElementsByTagName('head')[0];
@@ -72,15 +70,14 @@ app.get('/lehrer', function (req, res) {
         schueler.data.rows.forEach(scolar => {
             let listentry = doc.createElement('p');
             listentry.textContent = scolar.value
-            listDiv.appendChild(listentry) 
-        });  
-        res.send(responseView.serialize())    
+            listDiv.appendChild(listentry)
+        });
+        res.send(responseView.serialize())
     });
-
-
 });
 
 app.get('/schuelerAnlegen', function (req, res) {
+
 
     const responseView = getMainPage();
     const doc = responseView.window.document;
@@ -95,10 +92,10 @@ app.get('/schuelerAnlegen', function (req, res) {
     listDiv.appendChild(nameInput)
 
     res.send(responseView.serialize())
-    
+
 });
 
 
 app.listen(3000, function () {
     console.log('Server startet on Port 3000')
-})
+})  
