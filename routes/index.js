@@ -6,8 +6,7 @@ router.get('/login', function(req, res, next) {
 })
 
 router.post('/login', function(req, res, next) {
-    console.log(req.body.user)
-    console.log(req.body.pass)
+    console.log(req.body)
     req.flash('success_msg', 'asdf')
     res.redirect('login')
 })
@@ -18,6 +17,10 @@ router.get('/schuelerAnlegen', function(req, res, next) {
 
 router.get('/schuelerliste', function(req, res, next) {
     res.render('login', {title: 'Login'});
+})
+
+router.get('/lehrer', function(req, res, next) {
+    res.render('lehrer', {title: 'Login'});
 })
 
 module.exports = router
