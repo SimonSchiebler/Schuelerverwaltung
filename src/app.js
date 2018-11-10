@@ -14,6 +14,13 @@ const expressValidator = require('express-validator')
 const flash = require ('connect-flash')
 const passport = require('passport')
 
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('./../ssl/22029280_schuelerverwaltung.key', 'utf8');
+var certificate = fs.readFileSync('./../ssl/22029280_schuelerverwaltung.cert', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
 const couch = new nodeCouchDb({
     auth: {
         user: 'admin',
@@ -28,7 +35,16 @@ const viewUrl = '_design/v1/_view/id'
 
 const app = express();
 
-app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'main', layoutsDir: path.join(__dirname, '/views/layouts')}));
+
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(8080);
+httpsServer.listen(8443);
+
+
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'main', layoutsDir: path.join(__dirname,'views', 'layouts')}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -36,7 +52,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 app.use(session({
     secret: 'secret',
@@ -49,9 +65,9 @@ app.use(passport.session())
 
 app.use(expressValidator({
     errorFormatter: function(param, msg, value){
-        let namespace = param.split('.')
-        , root = namespace.shift()
-        , formParam = root;
+        let namespace = param.split('.'),
+        root = namespace.shift(),
+        formParam = root;
 
         while(namespace.length){
             formParam += '[' + namespace.shift() + ']';
