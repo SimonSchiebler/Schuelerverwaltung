@@ -35,14 +35,8 @@ const viewUrl = '_design/v1/_view/id'
 
 const app = express();
 
-
-
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
-
-httpServer.listen(8080);
-httpsServer.listen(8443);
-
 
 app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'main', layoutsDir: path.join(__dirname,'views', 'layouts')}));
 app.set('views', path.join(__dirname, 'views'));
@@ -97,3 +91,6 @@ app.set('port', (process.env.PORT || 3000))
 app.listen(app.get('port'), function () {
     console.log(`Server started on Port ${app.get('port')}`);
 })
+
+httpServer.listen(8080);
+httpsServer.listen(8443);
