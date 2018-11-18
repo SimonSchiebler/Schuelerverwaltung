@@ -1,27 +1,15 @@
 <link rel="stylesheet" href="/styles/schuelerAnlegen.css">
-<style>
 <div class="w3-container w3-blue">
     <h2>Schueler Anlegen</h2>
 </div>
-<form id="viewContainer" class="w3-container">
+<form action="/schueler" id="viewContainer" class="w3-container" method="POST">
+
+    <input name="vorname" class="form-control" placeholder="Vorname" required>
+
+    <input name="nachname" class="form-control" placeholder="nachname" required>
+    <input name="email" class="form-control" placeholder="email" required>
+    <input name="anlegeID" class="form-control" placeholder="anlegeID" required>
     <p>
-        <label>Vorname</label>
-        <input class="w3-input" type="text">
+        <button class="w3-button w3-blue" type="submit">Absenden</button>
     </p>
-    <p>
-        <label>Last Name</label>
-        <input class="w3-input" type="text">
-    </p>
-    <p>
-        <label>Email</label>
-        <input class="w3-input" type="text">
-    </p>
-    <p>
-        <button type="button" class="w3-button w3-blue" onclick="javascript:sendData()" >Absenden</button>
-    </p>
-</form>
-<script>
-    function sendData() {
-        document.location.href = "/schuelerAnlegen?{name: bla, adresse: bla }";
-    }
-</script>
+</form> 	

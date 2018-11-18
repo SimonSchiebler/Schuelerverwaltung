@@ -1,0 +1,29 @@
+<div id="accordion">
+    {{#each schueler}}
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne">
+                    {{this.vorname}} {{this.nachname}}
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <ul>
+                    <li>
+                        Vorname: {{this.vorname}}
+                    </li>
+                    <li>
+                        Nachname: {{this.nachname}}
+                    </li>
+                    <li>
+                        E-Mail: {{this.email}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
