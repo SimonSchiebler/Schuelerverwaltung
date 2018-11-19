@@ -1,8 +1,8 @@
-<button class="btn btn-primary" onclick="window.location.href = '/lehrer/generateCode'">
+<button class="btn btn-primary" onclick="generateCode()">
     Neuen registrierungscode erzrugen
 </button>
 
-<h2>Alle Aktiven Anlegecodes</h2> 
+<h2>Alle Aktiven Registrierungscodes</h2>
 
 
 
@@ -10,13 +10,23 @@
     {{#each anlegeIDs}}
     <a href="/lehrer/code/{{this.anlageID}}" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{this.anlageID}}</h5>
-            <small>TODO ANZAHL</small>
+            <h3 class="mb-1">{{this.anlageID}}</h3>
         </div>
+        <p>{{#if this.aktiv}}Aktiv{{else}}Inaktiv{{/if}}</p>
+        <p>Einträge: {{#if this.anzahlSchueler}}{{this.anzahlSchueler}}{{else}}0{{/if}}</p>
         <p class="mb-1">Angelegt durch {{this.angelegtDurch}}</p>
     </a>
-
-
-    
     {{/each}}
 </div>
+<script>
+    function generateCode() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.responseText) {
+                window.location.href = '/lehrer/code/' + this.responseText
+            }
+        };
+        xhttp.open("POST", "/lehrer/generateCode", true);
+        xhttp.send();
+    }
+</script>

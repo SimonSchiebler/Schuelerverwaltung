@@ -1,3 +1,6 @@
+<h3>Registrierungscode</h3>
+<h1>{{code}}</h1>
+<h3>Status: {{#if active}}Aktiv{{else}}Inaktiv{{/if}}</h3>
 <div id="accordion">
     {{#each schueler}}
     <div class="card">
@@ -27,3 +30,53 @@
     </div>
     {{/each}}
 </div>
+<button type="button" class="btn btn-danger" onclick="toggleActive()">Aktivieren/Deaktivieren</button>
+<button type="button" class="btn btn-danger" onclick="del()">Löschen</button>
+
+<a href="/lehrer">Zurück</a>
+
+<script type="text/javascript">
+
+    function toggleActive() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/lehrer/code/toggleaktiv/{{code}}', true);
+
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () { // Call a function when the state changes.
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                window.location.href = '/lehrer/code/{{code}}'
+            }
+        }
+        let a = {{ active }}
+
+    xhr.send(serialize({ aktiv: !a }));
+    }
+
+    function serialize (obj) {
+        var str = [];
+        for (var p in obj)
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+        return str.join("&");
+    }
+
+        function del(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/lehrer/code/delete/{{code}}', true);
+
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () { // Call a function when the state changes.
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                window.location.href = '/lehrer'
+            }
+        }
+
+    xhr.send();
+    }
+
+</script>
