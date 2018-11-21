@@ -30,9 +30,15 @@ module.exports.getSchuelerByAnlegeID = function (AnlegeID) {
     })
 }
 
-module.exports.deleteSchuelerByID = function (AnlegeID) {
+module.exports.deleteSchuelerByAnlegeID = function (AnlegeID) {
     return new Promise((resolve, reject) => {
         let query = { anlegeID: AnlegeID }
         User.deleteMany(query, (err) => (err)? reject(err) : resolve(err));
+    })
+}
+
+module.exports.deleteSchuelerByID = function(schuelerID) {
+    return new Promise((resolve, reject) => {
+        User.deleteOne({_id: schuelerID}, (err) => (err) ? reject(err) : resolve(err))
     })
 }

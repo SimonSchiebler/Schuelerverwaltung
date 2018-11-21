@@ -1,0 +1,275 @@
+<div id="accordion" class="panel-group">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne">
+                    Lehrerverwaltung
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+
+                <div id="accordionLehrerverwaltung" class="inline">
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour"
+                                    aria-expanded="true" aria-controls="collapseFour">
+                                    Lehrer Anlegen
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionLehrerverwaltung">
+                            <div class="card-body">
+                                <div>
+                                    <input id="usernameField" class="form-control" name="username" placeholder="Username">
+                                    <input id="pwField1" class="form-control" autocomplete="new-password" type="password"
+                                        name="password" placeholder="Passwort">
+                                    <input id="pwField2" class="form-control" autocomplete="new-password" type="password"
+                                        name="passwordre" placeholder="Passwort wiederholen">
+                                    <p>
+                                        <button class="btn btn-primary" onclick="createLehrer()">Lehrer Anlegen</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingFive">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive"
+                                    aria-expanded="true" aria-controls="collapseFive">
+                                    Lehrerliste Verwalten
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionLehrerverwaltung">
+                            <div class="card-body">
+                                <div>
+                                    <div id="accordionLehrer">
+                                        {{#each Lehrer}}
+                                        <div class="card">
+                                            <div class="card-header" id="heading{{this._id}}">
+                                                <h5 class="mb-0">
+                                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{this._id}}"
+                                                        aria-expanded="true" aria-controls="collapse{{this._id}}">
+                                                        {{this.username}} ID: {{this._id}}
+                                                    </button>
+                                                </h5>
+                                            </div>
+                                            <div id="collapse{{this._id}}" class="collapse" aria-labelledby="heading{{this._id}}"
+                                                data-parent="#accordionLehrer">
+                                                <div class="card-body">
+                                                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteUserDialog"
+                                                        onclick="setupDelDialog('{{this._id}}', '{{this.username}}')">Lehrer
+                                                        Löschen</button>
+                                                    <button type="button" onclick="setupChangePWDialog('{{this.username}}', '{{this.id}}')"
+                                                        class="btn btn-primary" data-toggle="modal" data-target="#PWChangeDialog">Passwort
+                                                        Ändern</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                    aria-controls="collapseTwo">
+                    Anlegecode Verwaltung
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
+                aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="false" aria-controls="collapseThree">
+                    Zertifikatsverwaltung
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
+                aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteUserDialog" tabindex="-1" role="dialog" aria-labelledby="PWChangeDialogTitleLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteUserDialogTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="DeleteUserDialogSubmitButton" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="PWChangeDialog" tabindex="-1" role="dialog" aria-labelledby="PWChangeDialogTitleLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PWChangeDialogTitleLabel">Passwort ändern</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="pwChangeField1" class="form-control" autocomplete="new-password" type="password" placeholder="Passwort">
+                <input id="pwChangeField2" class="form-control" autocomplete="new-password" type="password" placeholder="Wiederholung Passwort">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="PWChangeDialogSubmitButton" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function setupDelDialog(id, username) {
+        document.getElementById('DeleteUserDialogTitle').innerText = 'Löschen von User: ' + username;
+        document.getElementById('DeleteUserDialogSubmitButton').onclick = function () { delLehrer(id) };
+    }
+
+    function setupChangePWDialog(username, id) {
+        document.getElementById('PWChangeDialogTitleLabel').innerText = "Passwortänderung User: " + username
+        document.getElementById('PWChangeDialogSubmitButton').onclick = function () { changePW(id) };
+    }
+
+    function changePW(id) {
+        var changeDialog = document.getElementById('PWChangeDialog')
+        var pw1 = document.getElementById('pwChangeField1')
+        var pw2 = document.getElementById('pwChangeField2')
+        var body = document.getElementById('MainBody')
+
+        if (pw1.value === pw2.value) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/admin/users/changePW', true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    pw1.value = '';
+                    pw2.value = '';
+                    $('#PWChangeDialog').modal('hide')
+
+                }
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 520) {
+                    alert('Ein unbekannter Fehler ist aufgetreten')
+                }
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+                    alert('Rest schnittstelle wurde nicht gefunden')
+                }
+            }
+            xhr.send(serialize({ id: id, password: pw1.value }));
+        } else {
+            alert('Passwörter stimmen nicht überein')
+        }
+    }
+
+    function delLehrer(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/admin/users/delete', true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                $('#DeleteUserDialog').modal('hide')
+            }
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 520) {
+                alert('Ein unbekannter Fehler ist aufgetreten')
+            }
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+                alert('Rest schnittstelle wurde nicht gefunden')
+            }
+        }
+        xhr.send(serialize({ id: id }));
+    }
+
+    function changeLehrerPW(id) {
+
+    }
+
+    function createLehrer() {
+        let uname = document.getElementById("usernameField")
+        let pw1 = document.getElementById("pwField1")
+        let pw2 = document.getElementById("pwField2")
+
+        var isIdentical = pw1.value === pw2.value;
+        if (isIdentical) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/admin/users/create', true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    uname.value = '';
+                    pw1.value = '';
+                    pw2.value = '';
+                }
+            }
+            xhr.send(serialize({ username: uname.value, password: pw1.value }));
+        } else {
+            alert("Passwörter nicht gleich");
+            pw1.value = '';
+            pw2.value = '';
+            return false;
+        }
+    }
+
+    function serialize(obj) {
+        var str = [];
+        for (var p in obj)
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+        return str.join("&");
+    }
+</script>

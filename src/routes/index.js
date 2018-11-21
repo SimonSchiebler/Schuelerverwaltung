@@ -37,7 +37,7 @@ router.route('/schueler')
     })
     .post(function (req, res, next) {
         schuelerAnlegen(req, res)
-            .then(() => res.render('erfolgreichAngelegt')).catch((err) => (err=='notFound') ?res.render('404') : res.render('codeInaktiv'))
+            .then(() => res.render('erfolgreichAngelegt')).catch((err) => (err == 'notFound') ? res.render('404') : res.render('codeInaktiv'))
     });
 
 router.get('/lehrer', function (req, res, next) {
@@ -54,8 +54,14 @@ router.get('/lehrer', function (req, res, next) {
 })
 
 router.get('/admin', function (req, res) {
-    createUser('test', 'test');
-    res.redirect('login')
+    if (req.user && req.user.rolle === 'Admin') {
+        User.getUserByRole('Lehrer')
+            .then((Lehrerliste => res.render('admin', { Lehrer: Lehrerliste })))
+            .catch(() => res.render('error'))
+    } else {
+        res.redirect('503')
+    }
+
 });
 
 router.get('/logout', function (req, res) {
@@ -93,7 +99,7 @@ router.route('/lehrer/code/delete/:id')
     .post(function (req, res) {
         if (req.user) {
             AnlageObjekt.deleteAnlegeObjektByID(req.params.id)
-                .then(() => Schueler.deleteSchuelerByID(req.params.id))
+                .then(() => Schueler.deleteSchuelerByAnlegeID(req.params.id))
                 .then(() => res.send(200))
                 .catch(() => res.send(404))
         } else {
@@ -119,6 +125,14 @@ router.get('/error', function (req, res) {
     res.render('error')
 })
 
+router.route('/lehrer/schueler/delete/:id')
+    .post(function (req, res) {
+        if (req.user) {
+            Schueler.deleteSchuelerByID(req.params.id)
+                .then(() => res.send(200))
+        }
+    })
+
 router.get('/503', function (req, res) {
     res.render('503')
 })
@@ -134,9 +148,9 @@ function schuelerAnlegen(req) {
     return AnlageObjekt.getAnlegeObjektByID(req.body.anlegeID)
         .then((obj) => {
             return new Promise((resolve, reject) => {
-                if(!obj.obj){
+                if (!obj.obj) {
                     reject('notFound')
-                }else{
+                } else {
                     (obj.obj.aktiv) ? resolve(Schueler.createSchueler(newSchueler)) : reject('inactive')
                 }
             })
@@ -144,13 +158,49 @@ function schuelerAnlegen(req) {
         .then(() => AnlageObjekt.changeAnzahlSchueler(req.body.anlegeID, 1))
 }
 
-function createUser(username, password) {
-    var newUser = new User({
-        username: username,
-        password: password
-    });
+router.route('/admin/users/create/')
+    .post(function (req, res) {
+        if (req.user.rolle === 'Admin') {
+            createLehrer(req.body.username, req.body.password)
+                .then(res.send(200))
+                .catch(res.send(520))
+        } else {
+            res.send(503)
+        }
+    })
 
-    return User.createUser(newUser)
+router.route('/admin/users/changePW/')
+    .post(function (req, res) {
+        if (req.user.rolle === 'Admin') {
+            User.UpdateUserPW(req.body.id, req.body.password)
+                .then(() => res.send(200))
+                .catch(() => res.send(520))
+            } else {
+            res.send(503)
+        }
+    })
+
+router.route('/admin/users/delete/')
+    .post(function (req, res) {
+        if (req.user.rolle === 'Admin') {
+            User.deleteUserById(req.body.id)
+                .then(() => res.send(200))
+                .catch(() => res.send(520))
+        } else {
+            res.send(503)
+        }
+    })
+
+
+function createLehrer(username, password) {
+    return new Promise((resolve, reject) => {
+        var newUser = new User({
+            username: username,
+            password: password,
+            rolle: 'Lehrer'
+        });
+        return User.createUser(newUser, resolve, reject)
+    })
 };
 
 function generateCreationCode(req) {

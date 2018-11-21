@@ -9,14 +9,19 @@ var LehrerSchema = mongoose.Schema({
 	},
 	password: {
 		type: String
+	},
+	rolle: {
+		type: String
 	}
 }, { collection: 'users' });
 
 var User = module.exports = mongoose.model('User', LehrerSchema);
 
-module.exports.createUser = function (newUser) {
+module.exports.createUser = function (newUser, resolve, reject) {
 	return this.checkIfUserExitst(newUser.username)
 		.then(() => saveUser(newUser))
+		.then(() => resolve())
+		.catch(() => reject())
 
 }
 
@@ -30,22 +35,26 @@ module.exports.checkIfUserExitst = function (username) {
 			if (err || user) {
 				reject(err ? err : new Error(`User ${user.username} already esists`))
 			} else {
-				resolve(user)
+				resolve()
 			}
 		})
 	})
 }
 
 function saveUser(newUser) {
-	return Promise((resolve, reject) => {
-		return new Promise((resolve, reject) => {
-			bcrypt.genSalt(10, function (err, salt) {
-				bcrypt.hash(newUser.password, salt, function (err, hash) {
-					newUser.password = hash;
-					newUser.save((err, user) => resolve({ err: err, user: user }));
+	return new Promise((resolve, reject) => {
+		bcrypt.genSalt(10, function (err, salt) {
+			bcrypt.hash(newUser.password, salt, function (err, hash) {
+				newUser.password = hash;
+				newUser.save((err, user) => {
+					if (!err) {
+						resolve(user)
+					} else {
+						reject(err)
+					}
 				});
 			});
-		})
+		});
 	})
 }
 
@@ -59,7 +68,48 @@ module.exports.getUserByUsername = function (username, ) {
 module.exports.getUserById = function (id) {
 	return new Promise((resolve, reject) => {
 		User.findById(id, (err, user) => {
-			resolve({ err: err, user: user })});
+			resolve({ err: err, user: user })
+		});
+	})
+}
+
+module.exports.UpdateUserPW = function (id, newPW) {
+	return new Promise((resolve, reject) => {
+		bcrypt.genSalt(10, function (err, salt) {
+			bcrypt.hash(newPW, salt, function (err, hash) {
+				User.update({ _id: id }, { password: hash }, (err, user) => {
+					if (err) {
+						reject()
+					} else {
+						resolve({ err: err, user: user })
+					}
+				});
+			});
+		});
+	})
+}
+
+module.exports.deleteUserById = function (id) {
+	return new Promise((resolve, reject) => {
+		User.delete(id, (err, user) => {
+			if (err) {
+				reject()
+			} else {
+				resolve({ err: err, user: user })
+			}
+		});
+	})
+}
+
+module.exports.getUserByRole = function (role) {
+	return new Promise((resolve, reject) => {
+		User.find({ rolle: role }, (err, Lehrerliste) => {
+			if (err) {
+				reject(err)
+			} else {
+				resolve(Lehrerliste)
+			}
+		});
 	})
 
 }
@@ -72,7 +122,7 @@ module.exports.comparePassword = function (candidatePassword, user, callback) {
 			if (err) {
 				reject(err)
 			} else {
-				resolve({isMatch: isMatch, user: user});
+				resolve({ isMatch: isMatch, user: user });
 			}
 		});
 	})
