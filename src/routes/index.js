@@ -8,6 +8,9 @@ const User = require('./../models/Lehrer')
 const Schueler = require('./../models/Schueler')
 const AnlageObjekt = require('./../models/AnlageObjekt')
 
+const multer = require('multer')
+const upload = multer({dest: 'uploads/'})
+
 
 router.route('/login')
     .get(function (req, res, next) {
@@ -185,23 +188,30 @@ router.route('/admin/users/delete/')
         if (req.user.rolle === 'Admin') {
             User.deleteUserById(req.body.id)
                 .then(() => res.send(200))
-                .catch(() => res.send(520))
+                .catch((err) => res.send(err))
         } else {
             res.send(503)
         }
     })
 
-
-function createLehrer(username, password) {
-    return new Promise((resolve, reject) => {
-        var newUser = new User({
-            username: username,
-            password: password,
-            rolle: 'Lehrer'
-        });
-        return User.createUser(newUser, resolve, reject)
+router.route('/admin/certificate')
+    .post(upload.any(),function (req, res) {
+        if (req.user === 'Admin'){
+            console.log('asd')
+            
+        }
+        res.redirect('/error')
     })
-};
+    .get(() => {
+        res.redirect('/')
+    })
+
+router.route('/admin/shutdown')
+    .post(function (req, res) {
+        if(req.user === 'Admin'){
+            process.exit(0)
+        }
+    })
 
 function generateCreationCode(req) {
     return AnlageObjekt.createAnlageObjekt(randomstring.generate(6), req.user.username);

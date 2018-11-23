@@ -55,12 +55,12 @@
                                 <div>
                                     <div id="accordionLehrer">
                                         {{#each Lehrer}}
-                                        <div class="card">
+                                        <div class="card" id="{{this._id}}">
                                             <div class="card-header" id="heading{{this._id}}">
                                                 <h5 class="mb-0">
                                                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{this._id}}"
                                                         aria-expanded="true" aria-controls="collapse{{this._id}}">
-                                                        {{this.username}} ID: {{this._id}}
+                                                        {{this.username}}
                                                     </button>
                                                 </h5>
                                             </div>
@@ -117,15 +117,17 @@
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <form id="certUploadForm" action="/admin/certificate" method="post", enctype="multipart/form-data" onSubmit="(event) => { event.preventDefault(); }" />
+                    <input type="file" class="form-control-file" name="cert" />
+                    <input type="file" class="form-control-file" name="key" />
+                    <button type="submit" class="btn btn-primary">
+                        Upload und Serverrestart
+                    </button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="DeleteUserDialog" tabindex="-1" role="dialog" aria-labelledby="PWChangeDialogTitleLabel"
@@ -139,10 +141,12 @@
                 </button>
             </div>
             <div class="modal-body">
+                Sind sie sich sicher dass sie diesen Lehrer löschen wollen?
+                <h4 id="DeleteUserDialogBody"></h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="DeleteUserDialogSubmitButton" type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                <button id="DeleteUserDialogSubmitButton" type="button" class="btn btn-danger">Lehrer Löschen</button>
             </div>
         </div>
     </div>
@@ -166,8 +170,8 @@
                 <input id="pwChangeField2" class="form-control" autocomplete="new-password" type="password" placeholder="Wiederholung Passwort">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="PWChangeDialogSubmitButton" type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                <button id="PWChangeDialogSubmitButton" type="button" class="btn btn-primary">Passwort Ändern</button>
             </div>
         </div>
     </div>
@@ -177,6 +181,7 @@
     function setupDelDialog(id, username) {
         document.getElementById('DeleteUserDialogTitle').innerText = 'Löschen von User: ' + username;
         document.getElementById('DeleteUserDialogSubmitButton').onclick = function () { delLehrer(id) };
+        document.getElementById('DeleteUserDialogBody').innerText = 'Username: ' + username;
     }
 
     function setupChangePWDialog(username, id) {
@@ -199,8 +204,7 @@
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     pw1.value = '';
                     pw2.value = '';
-                    $('#PWChangeDialog').modal('hide')
-
+                    $('#PWChangeDialog').modal('hide'); console.log($)
                 }
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 520) {
                     alert('Ein unbekannter Fehler ist aufgetreten')
@@ -222,6 +226,8 @@
         xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 $('#DeleteUserDialog').modal('hide')
+                document.getElementById(id).remove()
+
             }
             if (this.readyState === XMLHttpRequest.DONE && this.status === 520) {
                 alert('Ein unbekannter Fehler ist aufgetreten')
@@ -253,6 +259,7 @@
                     uname.value = '';
                     pw1.value = '';
                     pw2.value = '';
+                    window.location.href = '/admin'
                 }
             }
             xhr.send(serialize({ username: uname.value, password: pw1.value }));

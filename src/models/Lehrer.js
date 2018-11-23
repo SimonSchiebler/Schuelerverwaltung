@@ -91,7 +91,7 @@ module.exports.UpdateUserPW = function (id, newPW) {
 
 module.exports.deleteUserById = function (id) {
 	return new Promise((resolve, reject) => {
-		User.delete(id, (err, user) => {
+		User.deleteOne({_id: id}, (err, user) => {
 			if (err) {
 				reject()
 			} else {
