@@ -1,15 +1,161 @@
 <link rel="stylesheet" href="/styles/schuelerAnlegen.css">
+<link rel="stylesheet" href="/styles/bootstrap-select-country.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/styles/datepicker.css">
+<script src="/js/datepicker.js"></script>
+
 <div class="w3-container w3-blue">
-    <h2>Schueler Anlegen</h2>
+    <h2>Schülerdaten</h2>
 </div>
-<form action="/schueler" id="viewContainer" class="w3-container" method="POST">
+<form>
+    <div class="form-group row">
+        <label for="SCHUELER_GESCHLECHT" class="col-4 col-form-label">Geschlecht</label>
+        <div class="col-8">
+            <select id="SCHUELER_GESCHLECHT" name="SCHUELER_GESCHLECHT" aria-describedby="SCHUELER_GESCHLECHTHelpBlock"
+                class="custom-select">
+                <option value="M">Männlich</option>
+                <option value="W">Weiblich</option>
+            </select>
+        </div>
+    </div>
 
-    <input name="vorname" class="form-control" placeholder="Vorname" required>
+    <div class="form-group row">
+        <label for="SCHUELER_VORNAME" class="col-4 col-form-label">Vorname</label>
+        <div class="col-8">
+            <input id="SCHUELER_VORNAME" name="SCHUELER_VORNAME" placeholder="Vorname" type="text" class="form-control here"
+                required="required">
+        </div>
+    </div>
 
-    <input name="nachname" class="form-control" placeholder="nachname" required>
-    <input name="email" class="form-control" placeholder="email" required>
-    <input name="anlegeID" class="form-control" placeholder="Registrierungscode" required>
-    <p>
-        <button class="btn btn-primary" type="submit">Absenden</button>
-    </p>
+    <div class="form-group row">
+        <label for="SCHUELER_NAME" class="col-4 col-form-label">Nachname</label>
+        <div class="col-8">
+            <input id="SCHUELER_NAME" name="SCHUELER_NAME" placeholder="Nachname" type="text" class="form-control here"
+                required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_GEB_DAT" class="col-4 col-form-label">Geburtsdatum</label>
+        <div class="col-8">
+            <div id="datepicker" class="input-group date" data-date-format="dd/mm/yyyy">
+                <input class="form-control" type="text" />
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_GEB_ORT" class="col-4 col-form-label">Geburtsort</label>
+        <div class="col-8">
+            <input id="SCHUELER_GEB_ORT" name="SCHUELER_GEB_ORT" placeholder="Geburtsort" type="text" class="form-control here"
+                required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_STAAT_1" class="col-4 col-form-label">Staatsangehörigkeit</label>
+        <div class="col-8">
+            <select class="selectpicker countrypicker form-control" data-live-search="true" data-default="DE"></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_RELIGION" class="col-4 col-form-label">Religion</label>
+        <div class="col-8">
+            <select id="SCHUELER_GESCHLECHT" name="SCHUELER_GESCHLECHT" class="custom-select">
+                <option value="ak">altkatholisch</option>"
+                <option value="ap">apostolisch</option>"
+                <option value="ba">baptistisch</option>"
+                <option value="bd">buddhistisch</option>"
+                <option value="ca">calvinistisch</option>"
+                <option value="cs">Christliche Wissenschaft</option>"
+                <option value="di">Dissident</option>"
+                <option value="ev">evangelisch</option>"
+                <option value="fr">französisch reformiert</option>"
+                <option value="go">griechisch orthodox</option>"
+                <option value="is">islamisch</option>"
+                <option value="jd">jüdisch</option>"
+                <option value="ka">katholisch</option>"
+                <option value="lt">evangelisch augsburgisch</option>"
+                <option value="lu">lutherisch</option>"
+                <option value="me">mennoitisch</option>"
+                <option value="ml">moslemisch</option>"
+                <option value="mt">methodistisch</option>"
+                <option value="na">neu apostolisch</option>"
+                <option value="ob">ohne Glaubensbekenntnis</option>"
+                <option value="ox">orthodox</option>"
+                <option value="pr">presbyritanisch</option>"
+                <option value="rf">reformiert</option>"
+                <option value="rk">römisch katholisch</option>"
+                <option value="ro">russisch orthodox</option>"
+                <option value="un">evangelisch uniert</option>"
+                <option value="wr">walonisch reformiert</option>"
+                <option value="zj">Zeuge Jehovas</option>"
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_TEL1" class="col-4 col-form-label">Telefonnummer</label>
+        <div class="col-8">
+            <input id="SCHUELER_TEL1" name="SCHUELER_TEL1" placeholder="Telefonnummer" type="text" class="form-control here"
+                required="required">
+        </div>
+    </div>
+
+    <div class="w3-container w3-blue">
+        <h2>Adresse</h2>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_STRASSE" class="col-4 col-form-label">Straße, Hausnummer</label>
+        <div class="col-8">
+            <input id="SCHUELER_STRASSE" name="SCHUELER_STRASSE" placeholder="Straße, Hausnummer" type="text" class="form-control here"
+                required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_PLZ" class="col-4 col-form-label">PLZ</label>
+        <div class="col-8">
+            <input id="SCHUELER_PLZ" name="SCHUELER_PLZ" placeholder="PLZ" type="text" class="form-control here"
+                required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="SCHUELER_ORT" class="col-4 col-form-label">Ort</label>
+        <div class="col-8">
+            <input id="SCHUELER_ORT" name="SCHUELER_ORT" placeholder="Ort" type="text" class="form-control here"
+                required="required">
+        </div>
+    </div>
+
+    <div class="w3-container w3-blue">
+        <h2>Betrieb / Beruf</h2>
+    </div>
+
+
+
+    <div class="form-group row">
+        <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
 </form>
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());
+    });
+</script>
+
+
+
+<script src="/js/bootstrap-select-country.min.js"></script>

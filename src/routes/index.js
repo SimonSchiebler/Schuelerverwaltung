@@ -7,6 +7,7 @@ const randomstring = require('randomstring')
 const User = require('./../models/Lehrer')
 const Schueler = require('./../models/Schueler')
 const AnlageObjekt = require('./../models/AnlageObjekt')
+const fs = require('fs')
 
 const multer = require('multer')
 const upload = multer({dest: 'uploads/'})
@@ -196,11 +197,25 @@ router.route('/admin/users/delete/')
 
 router.route('/admin/certificate')
     .post(upload.any(),function (req, res) {
-        if (req.user === 'Admin'){
-            console.log('asd')
-            
+        if (req.user.rolle === 'Admin' && req.files.length === 2){
+            fs.readdirSync('./../ssl/').forEach(currentSSLFile => {
+                fs.unlinkSync('./../ssl/' + currentSSLFile)
+            })
+            req.files.forEach(file => {
+
+                if (file.originalname.split('.').pop() === 'cert'){
+                    fs.copyFileSync(file.path,'./../ssl/schuelerverwaltung.cert')
+                }else{
+                    fs.copyFileSync(file.path,'./../ssl/schuelerverwaltung.key')
+                }
+
+            });
+            fs.readdirSync('./uploads/').forEach(currentUploadFile => {
+                fs.unlinkSync('./uploads/' + currentUploadFile)
+            })
+
+            process.exit(0)
         }
-        res.redirect('/error')
     })
     .get(() => {
         res.redirect('/')
@@ -209,7 +224,9 @@ router.route('/admin/certificate')
 router.route('/admin/shutdown')
     .post(function (req, res) {
         if(req.user === 'Admin'){
-            process.exit(0)
+            setTimeout(() => {
+                process.exit(0)
+            }, 5000);
         }
     })
 

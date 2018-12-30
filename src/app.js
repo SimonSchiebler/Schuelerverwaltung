@@ -14,8 +14,8 @@ const mongoose = require('mongoose');
 
 const http = require('http');
 const https = require('https');
-const privateKey  = fs.readFileSync('./../ssl/22029280_schuelerverwaltung.key', 'utf8');
-const certificate = fs.readFileSync('./../ssl/22029280_schuelerverwaltung.cert', 'utf8');
+const privateKey  = fs.readFileSync('./../ssl/schuelerverwaltung.key', 'utf8');
+const certificate = fs.readFileSync('./../ssl/schuelerverwaltung.cert', 'utf8');
 const MONGOHOST = '10.1.1.1:27017'
 const MONGOSERVICE = 'test'
 

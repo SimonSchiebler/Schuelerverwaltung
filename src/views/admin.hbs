@@ -117,9 +117,9 @@
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
-                <form id="certUploadForm" action="/admin/certificate" method="post", enctype="multipart/form-data" onSubmit="(event) => { event.preventDefault(); }" />
-                    <input type="file" class="form-control-file" name="cert" />
-                    <input type="file" class="form-control-file" name="key" />
+                <form id="certUploadForm" >
+                    Cert: <input  id="certInput" type="file" class="form-control-file" name="cert" /><br>
+                    Key: <input id="keyInput" type="file" class="form-control-file" name="key" /><br>
                     <button type="submit" class="btn btn-primary">
                         Upload und Serverrestart
                     </button>
@@ -178,6 +178,24 @@
 </div>
 
 <script>
+
+    $("#certUploadForm").submit(function (event) {
+        var fd = new FormData();
+        fd.append('file', document.getElementById('certInput').files[0]);
+        fd.append('file', document.getElementById('keyInput').files[0]);
+
+        $.ajax({
+            url: '/admin/certificate',
+            data: fd,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                alert(data);
+            }
+        });
+    });
+
     function setupDelDialog(id, username) {
         document.getElementById('DeleteUserDialogTitle').innerText = 'Löschen von User: ' + username;
         document.getElementById('DeleteUserDialogSubmitButton').onclick = function () { delLehrer(id) };

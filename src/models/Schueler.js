@@ -1,15 +1,85 @@
 var mongoose = require('mongoose');
 
 var SchuelerSchema = mongoose.Schema({
-    vorname: {
+    SCHUELER_NAME: {
         type: String
     },
-    nachname: {
+    SCHUELER_VORNAME: {
         type: String
     },
-    email: {
+    SCHUELER_GESCHLECHT: {
         type: String
     },
+    SCHUELER_GEB_DAT: {
+        type: String
+    },
+    SCHUELER_GEB_ORT: {
+        type: String
+    },
+    SCHUELER_STAAT_1: {
+        type: String
+    },
+    SCHUELER_PLZ: {
+        type: String
+    },
+    SCHUELER_ORT: {
+        type: String
+    },
+    SCHUELER_TEL1: {
+        type: String
+    },
+    SCHUELER__TEL2: {
+        type: String
+    },
+    "SCHUELER-SCHULJAHR": {
+        type: String
+    },
+    SCHUELER_EINTRITT: {
+        type: String
+    },
+    V_NAME: {
+        type: String
+    },
+    V_VORNAME: {
+        type: String
+    },
+    V_TITEL: {
+        type: String
+    },
+    V_SORGEBERECHTIGT: {
+        type: String
+    },
+    V_STRASSE: {
+        type: String
+    },
+    V_PLZ: {
+        type: String
+    },
+    V_ORT: {
+        type: String
+    },
+    V_BERUF: {
+        type: String
+    },
+    V_FIRMA: {
+        type: String
+    },
+    V_TEL1: {
+        type: String
+    },
+    V_TEL2: {
+        type: String
+    },
+    V_EMAIL: {
+        type: String
+    },
+    M_NAME: {
+        type: String
+    },
+    M_MUTTER: {
+        type: String
+    },
+    
     anlegeID: {
         type: String
     }
