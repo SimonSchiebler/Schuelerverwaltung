@@ -41,7 +41,7 @@ router.route('/schueler')
     })
     .post(function (req, res, next) {
         schuelerAnlegen(req, res)
-            .then(() => res.render('erfolgreichAngelegt')).catch((err) => (err == 'notFound') ? res.render('404') : res.render('codeInaktiv'))
+            .then(() => res.render('erfolgreichAngelegt',{user: req.user ? req.user.username : ''})).catch((err) => (err == 'notFound') ? res.render('404',{user: req.user ? req.user.username : ''}) : res.render('codeInaktiv'))
     });
 
 router.get('/lehrer', function (req, res, next) {
@@ -51,7 +51,7 @@ router.get('/lehrer', function (req, res, next) {
                 res.render('lehrer', {
                     user: req.user ? req.user.username : '', anlegeIDs: IDs
                 }))
-            .catch(() => res.render('error'))
+            .catch(() => res.render('error',{user: req.user ? req.user.username : ''}))
     } else {
         res.redirect('/login')
     }
@@ -60,8 +60,8 @@ router.get('/lehrer', function (req, res, next) {
 router.get('/admin', function (req, res) {
     if (req.user && req.user.rolle === 'Admin') {
         User.getUserByRole('Lehrer')
-            .then((Lehrerliste => res.render('admin', { Lehrer: Lehrerliste })))
-            .catch(() => res.render('error'))
+            .then((Lehrerliste => res.render('admin', { Lehrer: Lehrerliste , user: req.user ? req.user.username : ''})))
+            .catch(() => res.render('error', {user: req.user ? req.user.username : ''}))
     } else {
         res.redirect('503')
     }
@@ -70,11 +70,11 @@ router.get('/admin', function (req, res) {
 
 router.get('/logout', function (req, res) {
     req.logout();
-    res.render('logout');
+    res.render('logout',{user: req.user ? req.user.username : ''});
 });
 
 router.get('/', function (req, res) {
-    res.render('home')
+    res.render('home', {user: req.user ? req.user.username : ''})
 })
 
 router.post('/lehrer/generateCode', function (req, res) {
@@ -93,7 +93,7 @@ router.route('/lehrer/code/:id')
             AnlageObjekt.getAnlegeObjektByID(req.params.id)
                 .then((obj) => anlegeCode = obj.obj)
                 .then(() => getSchuelerListe(req.params.id))
-                .then((schueler) => { res.render('schuelerListe', { schueler: schueler, code: req.params.id, active: anlegeCode.aktiv }) })
+                .then((schueler) => { res.render('schuelerListe', { schueler: schueler, code: req.params.id, active: anlegeCode.aktiv, user: req.user ? req.user.username : ''}) })
                 .catch(() => res.redirect('/error'))
         } else {
             res.redirect('/login')
@@ -126,27 +126,52 @@ router.route('/lehrer/code/toggleaktiv/:id')
     })
 
 router.get('/error', function (req, res) {
-    res.render('error')
+    res.render('error', {user: req.user ? req.user.username : ''})
 })
 
-router.route('/lehrer/schueler/delete/:id')
+router.route('/lehrer/schueler/delete/:id/:anlegeID')
     .post(function (req, res) {
         if (req.user) {
-            Schueler.deleteSchuelerByID(req.params.id)
-                .then(() => res.send(200))
+           Schueler.deleteSchuelerByID(req.params.id)
+           .then(() => 
+           AnlageObjekt.changeAnzahlSchueler(req.params.anlegeID, -1))
+               .then(() => res.send(200))
         }
     })
 
 router.get('/503', function (req, res) {
-    res.render('503')
+    res.render('503', {user: req.user ? req.user.username : ''})
 })
 
 function schuelerAnlegen(req) {
     let newSchueler = new Schueler({
-        vorname: req.body.vorname,
-        email: req.body.email,
-        nachname: req.body.nachname,
-        anlegeID: req.body.anlegeID
+        SCHUELER_NAME: req.body.SCHUELER_NAME,
+        SCHUELER_VORNAME: req.body.SCHUELER_VORNAME,
+        SCHUELER_GESCHLECHT: req.body.SCHUELER_GESCHLECHT,
+        SCHUELER_GEB_DAT: req.body.SCHUELER_GEB_DAT,
+        SCHUELER_GEB_ORT: req.body.SCHUELER_GEB_ORT,
+        SCHUELER_STAAT_1: req.body.SCHUELER_STAAT_1,
+        SCHUELER_PLZ: req.body.SCHUELER_PLZ,
+        SCHUELER_ORT: req.body.SCHUELER_ORT,
+        SCHUELER_TEL1: req.body.SCHUELER_TEL1,
+        SCHUELER__TEL2: req.body.SCHUELER__TEL2,
+        "SCHUELER-SCHULJAHR": req.body["SCHUELER-SCHULJAHR"],
+        SCHUELER_EINTRITT: req.body.SCHUELER_EINTRITT,
+        V_NAME: req.body.V_NAME,
+        V_VORNAME: req.body.V_VORNAME,
+        V_TITEL: req.body.V_TITEL,
+        V_SORGEBERECHTIGT: req.body.V_SORGEBERECHTIGT,
+        V_STRASSE: req.body.V_STRASSE,
+        V_PLZ: req.body.V_PLZ,
+        V_ORT: req.body.V_ORT,
+        V_BERUF: req.body.V_BERUF,
+        V_FIRMA: req.body.V_FIRMA,
+        V_TEL1: req.body.V_TEL1,
+        V_TEL2: req.body.V_TEL2,
+        V_EMAIL: req.body.V_EMAIL,
+        M_NAME: req.body.M_NAME,
+        M_MUTTER: req.body.M_MUTTER,
+        anlegeID: req.body.anlegeID,
     })
 
     return AnlageObjekt.getAnlegeObjektByID(req.body.anlegeID)

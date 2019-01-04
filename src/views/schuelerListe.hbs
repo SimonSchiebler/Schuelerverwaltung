@@ -17,13 +17,10 @@
             <div class="card-body">
                 <ul>
                     <li>
-                        Vorname: {{this.vorname}}
+                        Vorname: {{this.SCHUELER_VORNAME}}
                     </li>
                     <li>
-                        Nachname: {{this.nachname}}
-                    </li>
-                    <li>
-                        E-Mail: {{this.email}}
+                        Nachname: {{this.SCHUELER_NAME}}
                     </li>
                 </ul>
             </div>
@@ -40,7 +37,7 @@
 
     function delSchueler(id) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", '/lehrer/schueler/delete/' + id, true);
+        xhr.open("POST", '/lehrer/schueler/delete/' + id + "/" + "{{code}}", true);
 
         //Send the proper header information along with the request
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
