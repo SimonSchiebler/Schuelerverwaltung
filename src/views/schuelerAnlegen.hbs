@@ -9,34 +9,32 @@
 <div class="w3-container w3-blue">
     <h2>Schülerdaten</h2>
 </div>
-<form action="/schueler" id="viewContainer" class="w3-container" method="POST">
-    <div class="form-group row">
+	<form>
+	<div class="form-group row">
         <label for="SCHUELER_GESCHLECHT" class="col-4 col-form-label">Geschlecht</label>
         <div class="col-8">
-            <select id="SCHUELER_GESCHLECHT" name="SCHUELER_GESCHLECHT" aria-describedby="SCHUELER_GESCHLECHTHelpBlock"
-                class="custom-select">
-                <option value="M">Männlich</option>
-                <option value="W">Weiblich</option>
+            <select id="SCHUELER_GESCHLECHT" name="SCHUELER_GESCHLECHT" class="custom-select">
+                <option value="M">männlich</option>
+                <option value="W">weiblich</option>
+				<option value="D">divers</option>
             </select>
+        </div>
+    </div>
+
+	<div class="form-group row">
+        <label for="SCHUELER_NAME" class="col-4 col-form-label">Nachname</label>
+        <div class="col-8">
+            <input id="SCHUELER_NAME" name="SCHUELER_NAME" placeholder="Nachname" type="text" class="form-control here" required="required">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="SCHUELER_VORNAME" class="col-4 col-form-label">Vorname</label>
         <div class="col-8">
-            <input id="SCHUELER_VORNAME" name="SCHUELER_VORNAME" placeholder="Vorname" type="text" class="form-control here"
-                required="required">
+            <input id="SCHUELER_VORNAME" name="SCHUELER_VORNAME" placeholder="Vorname" type="text" class="form-control here" required="required">
         </div>
     </div>
-
-    <div class="form-group row">
-        <label for="SCHUELER_NAME" class="col-4 col-form-label">Nachname</label>
-        <div class="col-8">
-            <input id="SCHUELER_NAME" name="SCHUELER_NAME" placeholder="Nachname" type="text" class="form-control here"
-                required="required">
-        </div>
-    </div>
-
+	
     <div class="form-group row">
         <label for="SCHUELER_GEB_DAT" class="col-4 col-form-label">Geburtsdatum</label>
         <div class="col-8">
@@ -50,22 +48,38 @@
     <div class="form-group row">
         <label for="SCHUELER_GEB_ORT" class="col-4 col-form-label">Geburtsort</label>
         <div class="col-8">
-            <input id="SCHUELER_GEB_ORT" name="SCHUELER_GEB_ORT" placeholder="Geburtsort" type="text" class="form-control here"
-                required="required">
+            <input id="SCHUELER_GEB_ORT" name="SCHUELER_GEB_ORT" placeholder="Geburtsort" type="text" class="form-control here" required="required">
         </div>
     </div>
-
-    <div class="form-group row">
-        <label for="SCHUELER_STAAT_1" class="col-4 col-form-label">Staatsangehörigkeit</label>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_GebLand" class="col-4 col-form-label">Geburtsland</label>
         <div class="col-8">
             <select class="selectpicker countrypicker form-control" data-live-search="true" data-default="DE"></select>
         </div>
     </div>
 
     <div class="form-group row">
+        <label for="SCHUELER_STAATS" class="col-4 col-form-label">Staatsangehörigkeit</label>
+        <div class="col-8">
+            <select class="selectpicker countrypicker form-control" data-live-search="true" data-default="DE"></select>
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_SPRACHE" class="col-4 col-form-label">Muttersprache</label>
+        <div class="col-8">
+            <select id="SCHUELER_SPRACHE" name="SCHUELER_SPRACHE" class="custom-select">
+                <option value="JA">DEUTSCH</option>
+                <option value="NEIN">ANDERE</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label for="SCHUELER_RELIGION" class="col-4 col-form-label">Religion</label>
         <div class="col-8">
-            <select id="SCHUELER_GESCHLECHT" name="SCHUELER_GESCHLECHT" class="custom-select">
+            <select id="SCHUELER_RELEGION" name="SCHUELER_RELEGION" class="custom-select">
                 <option value="ak">altkatholisch</option>"
                 <option value="ap">apostolisch</option>"
                 <option value="ba">baptistisch</option>"
@@ -97,65 +111,449 @@
             </select>
         </div>
     </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_EMAIL" class="col-4 col-form-label">eMail</label>
+        <div class="col-8">
+            <input id="SCHUELER_EMAIL" name="SCHUELER_EMAIL" placeholder="eMail" type="text" class="form-control here" required="required">
+        </div>
+    </div>
 
     <div class="form-group row">
         <label for="SCHUELER_TEL1" class="col-4 col-form-label">Telefonnummer</label>
         <div class="col-8">
-            <input id="SCHUELER_TEL1" name="SCHUELER_TEL1" placeholder="Telefonnummer" type="text" class="form-control here"
-                required="required">
+            <input id="SCHUELER_TEL1" name="SCHUELER_TEL1" placeholder="Telefonnummer" type="text" class="form-control here" required="required">
         </div>
     </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_TEL2" class="col-4 col-form-label">Handynummer</label>
+        <div class="col-8">
+            <input id="SCHUELER_TEL2" name="SCHUELER_TEL2" placeholder="Handynummer" type="text" class="form-control here" required="required">
+		</div>
+	</div>
 
-    <div class="w3-container w3-blue">
+	<div class="w3-container w3-blue">
         <h2>Adresse</h2>
     </div>
 
     <div class="form-group row">
         <label for="SCHUELER_STRASSE" class="col-4 col-form-label">Straße, Hausnummer</label>
         <div class="col-8">
-            <input id="SCHUELER_STRASSE" name="SCHUELER_STRASSE" placeholder="Straße, Hausnummer" type="text" class="form-control here"
-                required="required">
+            <input id="SCHUELER_STRASSE" name="SCHUELER_STRASSE" placeholder="Straße, Hausnummer" type="text" class="form-control here" required="required">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="SCHUELER_PLZ" class="col-4 col-form-label">PLZ</label>
         <div class="col-8">
-            <input id="SCHUELER_PLZ" name="SCHUELER_PLZ" placeholder="PLZ" type="text" class="form-control here"
-                required="required">
+            <input id="SCHUELER_PLZ" name="SCHUELER_PLZ" placeholder="PLZ" type="text" class="form-control here" required="required">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="SCHUELER_ORT" class="col-4 col-form-label">Ort</label>
         <div class="col-8">
-            <input id="SCHUELER_ORT" name="SCHUELER_ORT" placeholder="Ort" type="text" class="form-control here"
-                required="required">
+            <input id="SCHUELER_ORT" name="SCHUELER_ORT" placeholder="Ort" type="text" class="form-control here" required="required">
         </div>
     </div>
-
-    <div class="w3-container w3-blue">
-        <h2>Betrieb / Beruf</h2>
-    </div>
-
-<div class="w3-container w3-blue">
-        <h2>Anlegecode</h2>
-    </div>
-
-<div class="form-group row">
-        <label for="anlegeID" class="col-4 col-form-label">Anlegecode</label>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_LANDKREIS" class="col-4 col-form-label">Landkreis</label>
         <div class="col-8">
-            <input id="anlegeID" name="anlegeID" placeholder="Anlegecode" type="text" class="form-control here"
-                required="required">
+            <input id="SCHUELER_LANDKREIS" name="SCHUELER_LANDKREIS" placeholder="Landkreis" type="text" class="form-control here" required="required">
         </div>
     </div>
-
+	
+	<div class="form-group row">
+        <label for="SCHUELER_BuLand" class="col-4 col-form-label">Bundesland</label>
+        <div class="col-8">
+            <input id="SCHUELER_BuLand" name="SCHUELER_BuLand" placeholder="Bundesland" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	
+	<div class="w3-container w3-blue">
+        <h2>Schule</h2>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_KLASSE" class="col-4 col-form-label">Klasse</label>
+        <div class="col-8">
+            <input id="SCHUELER_KLASSE" name="SCHUELER_KLASSE" placeholder="Ihr Klassennamenkürzel" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_BEREITS_SCHUELER" class="col-4 col-form-label">Waren Sie schon einmal Schüler der HSS-Wiesloch?</label>
+        <div class="col-8">
+			<input type="radio" name="SCHUELER_BEREITS_SCHUELER" value="JA"> Ja <p>
+			<input type="radio" name="SCHUELER_BEREITS_SCHUELER" value="NEIN"> Nein	
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_ZUSATZ_FACHHOCHSCHULE" class="col-4 col-form-label">Teilnahme an der Zusatzqualifikation zur Fachhochschulreife gewünscht?</label>
+        <div class="col-8">
+			<input type="radio" name="SCHUELER_ZUSATZ_FACHHOCHSCHULE" value="JA"> Ja <p>
+			<input type="radio" name="SCHUELER_ZUSATZ_FACHHOCHSCHULE" value="NEIN"> Nein	
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_LETZTE_SCHULE" class="col-4 col-form-label">Zuletzt besuchte Schule</label>
+        <div class="col-8">
+            <select id="SCHUELER_LETZTE_SCHULE" name="SCHUELER_LETZTE_SCHULE" class="custom-select">
+                <option value="GS">Gemeinschaftsschule</option>
+                <option value="WR">Werkrealschule</option>
+				<option value="R">Realschule</option>
+                <option value="G">Gymnasium</option>
+				<option value="GB">gewerbliche Berufsschule</option>
+                <option value="KB">kaufmänische Berufsschule</option>
+				<option value="HB">hauswirtschaftliche Berufsschule</option>
+            </select>
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_VORBILDUNG" class="col-4 col-form-label">Vorbildung</label>
+        <div class="col-8">
+            <form> Kreuzen Sie bitte alle Ihre bisherigen Abschlüsse an!<p>
+				<ul class="checkbox_list">
+					<li>
+						<label for="check1">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="T" id="check1"> Gemeinschafts-,Werkrealschule -> OHNE Hauptschulabschluss!
+						</label>
+					</li>
+					<li>
+						<label for="check2">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="H" id="check2"> mit Hauptschulabschluss durch HSA-Prüfung! (ermöglicht 10.Klasse)
+						</label>
+					</li>
+					<li>
+						<label for="check3">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="WR" id="check3"> mit Werkrealschulabschluss
+						</label>
+					</li>
+					<li>
+						<label for="check4">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="R" id="check4"> mit Realschulabschluss
+						</label>
+					</li>
+					<li>
+						<label for="check5">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="G10" id="check5"> mit mittleren Bildungsabschluss am Gymnasium
+						</label>
+					</li>
+					<li>
+						<label for="check6">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="FS" id="check6"> mit Fachschulreife an einer Gewerblichen-,Kaufmänischen- oder Hauswirtschaftlichen Berufsschule
+						</label>
+					</li>
+					<li>
+						<label for="check7">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="FHR" id="check7"> mit Fachhochschulreife
+						</label>
+					</li>
+					<li>
+						<label for="check8">
+							<input type="checkbox" name="SCHUELER_VORBILDUNG" value="ABI" id="check8"> mit Hochschulreife
+						</label>
+					</li>
+				</ul>
+			</form>
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_FREMDSPRACHEN" class="col-4 col-form-label">Fremdsprachen</label>
+        <div class="col-8">
+            <input id="SCHUELER_FREMDSPRACHEN" name="SCHUELER_FREMDSPRACHEN" placeholder="bisher erlernte Fremdsprachen" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="w3-container w3-blue">
+        <h2>1. Bezugsperson</h2>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG1_PERSON" class="col-4 col-form-label">Bezugsperson</label>
+        <div class="col-8">
+            <select id="BEZUG1_PERSON" name="BEZUG1_PERSON" class="custom-select">
+                <option value="Vater">Vater</option>
+                <option value="Mutter">Mutter</option>
+				<option value="Ehegatte">Ehegatte</option>
+				<option value="Bezugsperson">Bezugsperson</option>
+				<option value="Heim">Heim</option>
+            </select>
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG1_NAME" class="col-4 col-form-label">Nachname</label>
+        <div class="col-8">
+            <input id="BEZUG1_NAME" name="BEZUG1_NAME" placeholder="Nachname" type="text" class="form-control here" required="required">
+        </div>
+    </div>
 
     <div class="form-group row">
-        <div class="offset-4 col-8">
-            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        <label for="BEZUG1_VORNAME" class="col-4 col-form-label">Vorname</label>
+        <div class="col-8">
+            <input id="BEZUG1_VORNAME" name="BEZUG1_VORNAME" placeholder="Vorname" type="text" class="form-control here" required="required">
         </div>
     </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG1_STRASSE" class="col-4 col-form-label">Straße, Hausnummer</label>
+        <div class="col-8">
+            <input id="BEZUG1_STRASSE" name="BEZUG1_STRASSE" placeholder="Straße, Hausnummer" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BEZUG1_PLZ" class="col-4 col-form-label">PLZ</label>
+        <div class="col-8">
+            <input id="BEZUG1_PLZ" name="BEZUG1_PLZ" placeholder="PLZ" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BEZUG1_ORT" class="col-4 col-form-label">Ort</label>
+        <div class="col-8">
+            <input id="BEZUG1_ORT" name="BEZUG1_ORT" placeholder="Ort" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG1_EMAIL" class="col-4 col-form-label">eMail</label>
+        <div class="col-8">
+            <input id="BEZUG1_EMAIL" name="BEZUG1_EMAIL" placeholder="eMail" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BEZUG1_TEL" class="col-4 col-form-label">Telefonnummer</label>
+        <div class="col-8">
+            <input id="BEZUG1_TEL" name="BEZUG1_TEL" placeholder="Telefonnummer" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG1_FAX" class="col-4 col-form-label">Faxnummer</label>
+        <div class="col-8">
+            <input id="BEZUG1_FAX" name="BEZUG1_FAX" placeholder="Faxnummer" type="text" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="w3-container w3-blue">
+        <h2>2. Bezugsperson</h2>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG2_PERSON" class="col-4 col-form-label">Bezugsperson</label>
+        <div class="col-8">
+            <select id="BEZUG2_PERSON" name="BEZUG2_PERSON" class="custom-select">
+				<option value="Mutter">Mutter</option>
+                <option value="Vater">Vater</option>
+				<option value="Ehegatte">Ehegatte</option>
+				<option value="Bezugsperson">Bezugsperson</option>
+				<option value="Heim">Heim</option>
+            </select>
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG2_NAME" class="col-4 col-form-label">Nachname</label>
+        <div class="col-8">
+            <input id="BEZUG2_NAME" name="BEZUG2_NAME" placeholder="Nachname" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BEZUG2_VORNAME" class="col-4 col-form-label">Vorname</label>
+        <div class="col-8">
+            <input id="BEZUG2_VORNAME" name="BEZUG2_VORNAME" placeholder="Vorname" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG2_STRASSE" class="col-4 col-form-label">Straße, Hausnummer</label>
+        <div class="col-8">
+            <input id="BEZUG2_STRASSE" name="BEZUG2_STRASSE" placeholder="Straße, Hausnummer" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BEZUG2_PLZ" class="col-4 col-form-label">PLZ</label>
+        <div class="col-8">
+            <input id="BEZUG2_PLZ" name="BEZUG2_PLZ" placeholder="PLZ" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BEZUG2_ORT" class="col-4 col-form-label">Ort</label>
+        <div class="col-8">
+            <input id="BEZUG2_ORT" name="BEZUG2_ORT" placeholder="Ort" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG2_EMAIL" class="col-4 col-form-label">eMail</label>
+        <div class="col-8">
+            <input id="BEZUG2_EMAIL" name="BEZUG2_EMAIL" placeholder="eMail" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BEZUG2_TEL" class="col-4 col-form-label">Telefonnummer</label>
+        <div class="col-8">
+            <input id="BEZUG2_TEL" name="BEZUG2_TEL" placeholder="Telefonnummer" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BEZUG2_FAX" class="col-4 col-form-label">Faxnummer</label>
+        <div class="col-8">
+            <input id="BEZUG2_FAX" name="BEZUG2_FAX" placeholder="Faxnummer" type="text" class="form-control here" required="required">
+		</div>
+	</div>
+
+    <div class="w3-container w3-blue">
+        <h2>Beruf / Betrieb</h2>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BERUF_NAME" class="col-4 col-form-label">Ausbildungsberuf</label>
+        <div class="col-8">
+            <input id="BERUF_NAME" name="BERUF_NAME" placeholder="Ausbildungsberuf" type="text" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+        <label for="BERUF_NR" class="col-4 col-form-label">Berufsnummer</label>
+        <div class="col-8">
+            <input id="BERUF_NR" name="BERUF_NR" placeholder="Berufsnummer" type="text" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+        <label for="BETRIEB_NAME" class="col-4 col-form-label">Ausbildungsbetrieb</label>
+        <div class="col-8">
+            <input id="BETRIEB_NAME" name="BETRIEB_NAME" placeholder="Ausbildungsbetrieb" type="text" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+        <label for="AUSBILDER" class="col-4 col-form-label">Ausbilder</label>
+        <div class="col-8">
+            <input id="AUSBILDER" name="AUSBILDER" placeholder="Ausbilder" type="text" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+        <label for="BETRIEB_STRASSE" class="col-4 col-form-label">Straße, Hausnummer</label>
+        <div class="col-8">
+            <input id="BETRIEB_STRASSE" name="BETRIEB_STRASSE" placeholder="Straße, Hausnummer" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BETRIEB_PLZ" class="col-4 col-form-label">PLZ</label>
+        <div class="col-8">
+            <input id="BETRIEB_PLZ" name="BETRIEB_PLZ" placeholder="PLZ" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BETRIEB_ORT" class="col-4 col-form-label">Ort</label>
+        <div class="col-8">
+            <input id="BETRIEB_ORT" name="BETRIEB_ORT" placeholder="Ort" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BETRIEB_EMAIL" class="col-4 col-form-label">eMail</label>
+        <div class="col-8">
+            <input id="BETRIEB_EMAIL" name="BETRIEB_EMAIL" placeholder="eMail" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="BETRIEB_TEL" class="col-4 col-form-label">Telefonnummer</label>
+        <div class="col-8">
+            <input id="BETRIEB_TEL" name="BETRIEB_TEL" placeholder="Telefonnummer" type="text" class="form-control here" required="required">
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="BETRIEB_FAX" class="col-4 col-form-label">Faxnummer</label>
+        <div class="col-8">
+            <input id="BETRIEB_FAX" name="BETRIEB_FAX" placeholder="Faxnummer" type="text" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="AUSBILDUNGSBEGINN" class="col-4 col-form-label">Ausbildungsbeginn</label>
+		<div class="col-8">	
+			<input id="AUSBILDUNGSBEGINN" name="AUSBILDUNGSBEGINN" type="date" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="AUSBILDUNGSENDE" class="col-4 col-form-label">Ausbildungsende</label>
+		<div class="col-8">	
+			<input id="AUSBILDUNGSENDE" name="AUSBILDUNGSENDE" type="date" class="form-control here" required="required">
+		</div>
+	</div>
+	
+	<div class="form-group row">
+        <label for="AUSBILDUNGSVERKUERZUNG" class="col-4 col-form-label">Verkürzen Sie Ihre Ausbildung?</label>
+        <div class="col-8">
+			<input type="radio" name="Ausbildungsverkuerzung" value="JA"> Ja <p>
+			<input type="radio" name="Ausbildungsverkuerzung" value="NEIN"> Nein	
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <label for="KAMMER" class="col-4 col-form-label">Über welche Kammer beginnen Sie die Ausbildung?</label>
+        <div class="col-8">
+			<input type="radio" name="Kammer" value="IHK"> Industrie- und Handelskammer <p>
+			<input type="radio" name="Kammer" value="HWK"> Handwerkskammer	
+        </div>
+    </div>
+	
+	
+	<div class="w3-container w3-blue">
+        <h2>Erklärungen</h2>
+    </div>
+	
+	<div class="form-group row">
+        <label for="SCHUELER_ERKLAERUNG" class="col-4 col-form-label">Wichtige Hinweise</label>
+        <div class="col-8">
+            <form>
+				<ul class="checkbox_list">
+					<li>
+						<label for="check1">
+							<input type="checkbox" name="SCHUELER_ERKLAERUNG" value="AUFNAHME" id="check1"> Ich beantrage die Aufnahme in die oben eingetragene Klasse.
+						</label>
+					</li>
+					<li>
+						<label for="check2">
+							<input type="checkbox" name="SCHUELER_ERKLAERUNG" value="EDV" id="check2"> Ich habe davon Kenntnis genommen, dass alle Daten dieses Anmeldeformulares zu schulischen Zwecken in die EDV aufgenommen werden. 
+						</label>
+					</li>
+					
+				</ul>
+			</form>
+        </div>
+    </div>
+	
+	<div class="form-group row">
+        <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Senden</button>
+        </div>
+    </div>
+	
 </form>
 
 <script>
@@ -166,7 +564,5 @@
         }).datepicker('update', new Date());
     });
 </script>
-
-
 
 <script src="/js/bootstrap-select-country.min.js"></script>
