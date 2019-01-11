@@ -15,7 +15,7 @@ const upload = multer({dest: 'uploads/'})
 
 router.route('/login')
     .get(function (req, res, next) {
-        res.render('login', { user: req.user ? req.user.username : '' });
+        res.render('login', { user: req.user ? req.user.username : '',userId: req.user? req.user._id : '' });
     })
     .post(passport.authenticate('local', { successRedirect: '/lehrer', failureRedirect: '/login', failureFlash: 'Invalid username or password.' }), function (req, res, next) {
         res.redirect('/lehrer')
@@ -36,11 +36,11 @@ passport.use(new LocalStrategy(
 
 router.route('/schueler')
     .get(function (req, res, next) {
-        res.render('schuelerAnlegen', { user: req.user ? req.user.username : '' });
+        res.render('schuelerAnlegen', { user: req.user ? req.user.username : '',userId: req.user? req.user._id : '' });
     })
     .post(function (req, res, next) {
         schuelerAnlegen(req, res)
-            .then(() => res.render('erfolgreichAngelegt',{user: req.user ? req.user.username : ''})).catch((err) => (err == 'notFound') ? res.render('404',{user: req.user ? req.user.username : ''}) : res.render('codeInaktiv'))
+            .then(() => res.render('erfolgreichAngelegt',{user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''})).catch((err) => (err == 'notFound') ? res.render('404',{user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''}) : res.render('codeInaktiv'))
     });
 
 router.get('/lehrer', function (req, res, next) {
@@ -48,9 +48,9 @@ router.get('/lehrer', function (req, res, next) {
         AnlageObjekt.getActiveAnlegeIDs()
             .then((IDs) =>
                 res.render('lehrer', {
-                    user: req.user ? req.user.username : '', anlegeIDs: IDs
+                    user: req.user ? req.user.username : '',userId: req.user? req.user._id : '', anlegeIDs: IDs
                 }))
-            .catch(() => res.render('error',{user: req.user ? req.user.username : ''}))
+            .catch(() => res.render('error',{user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''}))
     } else {
         res.redirect('/login')
     }
@@ -59,8 +59,8 @@ router.get('/lehrer', function (req, res, next) {
 router.get('/admin', function (req, res) {
     if (req.user && req.user.rolle === 'Admin') {
         User.getUserByRole('Lehrer')
-            .then((Lehrerliste => res.render('admin', { Lehrer: Lehrerliste , user: req.user ? req.user.username : ''})))
-            .catch(() => res.render('error', {user: req.user ? req.user.username : ''}))
+            .then((Lehrerliste => res.render('admin', { Lehrer: Lehrerliste , user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''})))
+            .catch(() => res.render('error', {user: req.user ? req.user.username : '',userId: req.user? req.user._id : '',  userId: req.user? req.user._id : ''}))
     } else {
         res.redirect('503')
     }
@@ -69,11 +69,11 @@ router.get('/admin', function (req, res) {
 
 router.get('/logout', function (req, res) {
     req.logout();
-    res.render('logout',{user: req.user ? req.user.username : ''});
+    res.render('logout',{user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''});
 });
 
 router.get('/', function (req, res) {
-    res.render('home', {user: req.user ? req.user.username : ''})
+    res.render('home', {user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''})
 })
 
 router.post('/lehrer/generateCode', function (req, res) {
@@ -92,7 +92,7 @@ router.route('/lehrer/code/:id')
             AnlageObjekt.getAnlegeObjektByID(req.params.id)
                 .then((obj) => anlegeCode = obj.obj)
                 .then(() => getSchuelerListe(req.params.id))
-                .then((schueler) => { res.render('schuelerListe', { schueler: schueler, code: req.params.id, active: anlegeCode.aktiv, user: req.user ? req.user.username : ''}) })
+                .then((schueler) => { res.render('schuelerListe', { schueler: schueler, code: req.params.id, active: anlegeCode.aktiv, user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''}) })
                 .catch(() => res.redirect('/error'))
         } else {
             res.redirect('/login')
@@ -125,7 +125,7 @@ router.route('/lehrer/code/toggleaktiv/:id')
     })
 
 router.get('/error', function (req, res) {
-    res.render('error', {user: req.user ? req.user.username : ''})
+    res.render('error', {user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''})
 })
 
 router.route('/lehrer/schueler/delete/:id/:anlegeID')
@@ -139,7 +139,7 @@ router.route('/lehrer/schueler/delete/:id/:anlegeID')
     })
 
 router.get('/503', function (req, res) {
-    res.render('503', {user: req.user ? req.user.username : ''})
+    res.render('503', {user: req.user ? req.user.username : '',userId: req.user? req.user._id : ''})
 })
 
 function schuelerAnlegen(req) {
