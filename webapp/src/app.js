@@ -22,8 +22,8 @@ if(process.argv[2] === 'docker'){
     console.log('starting application in docker mode')
     MONGOHOST = 'mongo:27017'
 }else{
-    console.log('starting application in docker mode')
-    MONGOHOST = '10.0.0.1:27017'
+    console.log('starting application in development mode')
+    MONGOHOST = '127.0.0.1:27017'
 }
 
 const MONGOSERVICE = 'test'
