@@ -16,7 +16,16 @@ const http = require('http');
 const https = require('https');
 const privateKey  = fs.readFileSync('./../ssl/schuelerverwaltung.key', 'utf8');
 const certificate = fs.readFileSync('./../ssl/schuelerverwaltung.cert', 'utf8');
-const MONGOHOST = '10.1.1.1:27017'
+
+let MONGOHOST = ''
+if(process.argv[2] === 'docker'){
+    console.log('starting application in docker mode')
+    MONGOHOST = 'mongo:27017'
+}else{
+    console.log('starting application in docker mode')
+    MONGOHOST = '10.0.0.1:27017'
+}
+
 const MONGOSERVICE = 'test'
 
 const credentials = {key: privateKey, cert: certificate};

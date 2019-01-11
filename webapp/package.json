@@ -5,7 +5,8 @@
   "main": "./src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd src && node app.js"
+    "start": "cd src && node app.js",
+    "startDocker": "cd src && node app.js docker"
   },
   "repository": {
     "type": "git",
