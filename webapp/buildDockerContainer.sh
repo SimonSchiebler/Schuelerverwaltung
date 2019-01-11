@@ -1,3 +1,3 @@
 docker rmi schueler
-docker build .
+docker build . -t schueler:latest
 docker save schueler > ../docker/Schuelerverwaltung.tar
