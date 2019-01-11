@@ -58,28 +58,20 @@
                                         <div class="card" id="{{this._id}}">
                                             <div class="card-header" id="heading{{this._id}}">
                                                 <h5 class="mb-0">
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="col-sm">
-                                                                <button class="btn btn-link" data-toggle="collapse"
-                                                                    data-target="#collapse{{this._id}}" aria-expanded="true"
-                                                                    aria-controls="collapse{{this._id}}">
-                                                                    {{this.username}}
-                                                                </button>
-                                                            </div>
-                                                            <div class="col-sm">
-                                                                <div class="text-right">{{this.rolle}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{this._id}}"
+                                                        aria-expanded="true" aria-controls="collapse{{this._id}}">
+                                                        {{this.username}}
+                                                    </button>
                                                 </h5>
                                             </div>
                                             <div id="collapse{{this._id}}" class="collapse" aria-labelledby="heading{{this._id}}"
                                                 data-parent="#accordionLehrer">
                                                 <div class="card-body">
+
                                                     <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteUserDialog"
                                                         onclick="setupDelDialog('{{this._id}}', '{{this.username}}')">Lehrer
                                                         Löschen</button>
+
                                                     <button type="button" onclick="setupChangePWDialog('{{this.username}}', '{{this.id}}')"
                                                         class="btn btn-primary" data-toggle="modal" data-target="#PWChangeDialog">Passwort
                                                         Ändern</button>
