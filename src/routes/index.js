@@ -58,7 +58,7 @@ router.get('/lehrer', function (req, res, next) {
 
 router.get('/admin', function (req, res) {
     if (req.user && req.user.rolle === 'Admin') {
-        User.getAllUsers('Lehrer')
+        User.getUserByRole('Lehrer')
             .then((Lehrerliste => res.render('admin', { Lehrer: Lehrerliste , user: req.user ? req.user.username : ''})))
             .catch(() => res.render('error', {user: req.user ? req.user.username : ''}))
     } else {
@@ -149,27 +149,61 @@ function schuelerAnlegen(req) {
         SCHUELER_GESCHLECHT: req.body.SCHUELER_GESCHLECHT,
         SCHUELER_GEB_DAT: req.body.SCHUELER_GEB_DAT,
         SCHUELER_GEB_ORT: req.body.SCHUELER_GEB_ORT,
+        SCHUELER_GEB_LAND: req.body.SCHUELER_GEB_LAND,
         SCHUELER_STAAT_1: req.body.SCHUELER_STAAT_1,
+        SCHUELER_ZUSATZ_FACHHOCHSCHULE: req.body.SCHUELER_ZUSATZ_FACHHOCHSCHULE,
+        SCHUELER_LETZTE_SCHULE: req.body.SCHUELER_LETZTE_SCHULE,
+        SCHUELER_SPRACHE: req.body.SCHUELER_SPRACHE,
+        SCHUELER_VORBILDUNG: req.body.SCHUELER_VORBILDUNG,
+        SCHUELER_EMAIL: req.body.SCHUELER_EMAIL,
+        SCHUELER_BEREITS_SCHUELER: req.body.SCHUELER_BEREITS_SCHUELER,
+        SCHUELER_FREMDSPRACHEN: req.body.SCHUELER_FREMDSPRACHEN,
+        SCHUELER_KLASSE: req.body.SCHUELER_KLASSE,
+        SCHUELER_BULAND: req.body.SCHUELER_BULAND,
+        SCHUELER_STRASSE:req.body.SCHUELER_STRASSE,
         SCHUELER_PLZ: req.body.SCHUELER_PLZ,
+        SCHUELER_LANDKREIS: req.body.SCHUELER_LANDKREIS,
         SCHUELER_ORT: req.body.SCHUELER_ORT,
         SCHUELER_TEL1: req.body.SCHUELER_TEL1,
-        SCHUELER__TEL2: req.body.SCHUELER__TEL2,
-        "SCHUELER-SCHULJAHR": req.body["SCHUELER-SCHULJAHR"],
-        SCHUELER_EINTRITT: req.body.SCHUELER_EINTRITT,
-        V_NAME: req.body.V_NAME,
-        V_VORNAME: req.body.V_VORNAME,
-        V_TITEL: req.body.V_TITEL,
-        V_SORGEBERECHTIGT: req.body.V_SORGEBERECHTIGT,
-        V_STRASSE: req.body.V_STRASSE,
-        V_PLZ: req.body.V_PLZ,
-        V_ORT: req.body.V_ORT,
-        V_BERUF: req.body.V_BERUF,
-        V_FIRMA: req.body.V_FIRMA,
-        V_TEL1: req.body.V_TEL1,
-        V_TEL2: req.body.V_TEL2,
-        V_EMAIL: req.body.V_EMAIL,
-        M_NAME: req.body.M_NAME,
-        M_MUTTER: req.body.M_MUTTER,
+        SCHUELER_TEL2: req.body.SCHUELER_TEL2,
+
+        BEZUG1_PERSON: req.body.BEZUG1_PERSON,
+        BEZUG1_NAME: req.body.BEZUG1_NAME,
+        BEZUG1_VORNAME: req.body.BEZUG1_VORNAME,
+        BEZUG1_STRASSE: req.body.BEZUG1_STRASSE,
+        BEZUG1_PLZ: req.body.BEZUG1_PLZ,
+        BEZUG1_ORT: req.body.BEZUG1_ORT,
+        BEZUG1_EMAIL: req.body.BEZUG1_EMAIL,
+        BEZUG1_TEL: req.body.BEZUG1_TEL,
+        BEZUG1_FAX: req.body.BEZUG1_FAX,
+
+        BEZUG2_PERSON: req.body.BEZUG2_PERSON,
+        BEZUG2_NAME: req.body.BEZUG2_NAME,
+        BEZUG2_VORNAME: req.body.BEZUG2_VORNAME,
+        BEZUG2_STRASSE: req.body.BEZUG2_STRASSE,
+        BEZUG2_PLZ: req.body.BEZUG2_PLZ,
+        BEZUG2_ORT: req.body.BEZUG2_ORT,
+        BEZUG2_EMAIL: req.body.BEZUG2_EMAIL,
+        BEZUG2_TEL: req.body.BEZUG2_TEL,
+        BEZUG2_FAX: req.body.BEZUG2_FAX,
+
+        BERUF_NAME: req.body.BERUF_NAME,
+        BERUF_NR: req.body.BERUF_NR,
+        BETRIEB_NAME: req.body.BETRIEB_NAME,
+        AUSBILDER: req.body.AUSBILDER,
+        BETRIEB_STRASSE: req.body.BETRIEB_STRASSE,
+        BETRIEB_PLZ: req.body.BETRIEB_PLZ,
+        BETRIEB_EMAIL: req.body.BETRIEB_EMAIL,
+        BETRIEB_TEL: req.body.BETRIEB_TEL,
+        BETRIEB_FAX: req.body.BETRIEB_FAX,
+
+        AUSBILDUNGSBEGINN: req.body.AUSBILDUNGSBEGINN,
+        AUSBILDUNGSENDE: req.body.AUSBILDUNGSENDE,
+        AUSBILDUNGSVERKUERZUNG: req.body.AUSBILDUNGSVERKUERZUNG,
+        KAMMER: req.body.KAMMER,
+
+        SCHUELER_ERKLAERUNG: req.body.SCHUELER_ERKLAERUNG,
+
         anlegeID: req.body.anlegeID,
     })
 

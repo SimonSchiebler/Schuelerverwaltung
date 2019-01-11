@@ -125,7 +125,6 @@ module.exports.getUserByRole = function (role) {
 			}
 		});
 	})
-
 }
 
 module.exports.comparePassword = function (candidatePassword, user, callback) {
@@ -144,6 +143,5 @@ module.exports.comparePassword = function (candidatePassword, user, callback) {
 		}else{
 			reject(new Error("User or Password incorrect"))
 		}
-		
 	})
 }
