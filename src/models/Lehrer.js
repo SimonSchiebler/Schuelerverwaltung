@@ -17,12 +17,13 @@ var LehrerSchema = mongoose.Schema({
 
 var User = module.exports = mongoose.model('User', LehrerSchema);
 
-module.exports.createUser = function (newUser, resolve, reject) {
-	return this.checkIfUserExitst(newUser.username)
+module.exports.createUser = function (newUser) {
+	return new Promise((resolve, reject) => {
+		this.checkIfUserExitst(newUser.username)
 		.then(() => saveUser(newUser))
 		.then(() => resolve())
 		.catch(() => reject())
-
+	})
 }
 
 module.exports.checkIfUserExitst = function (username) {
@@ -73,6 +74,19 @@ module.exports.getUserById = function (id) {
 	})
 }
 
+module.exports.getAllUsers = function (role) {
+	return new Promise((resolve, reject) => {
+		User.find({ }, (err, Lehrerliste) => {
+			if (err) {
+				reject(err)
+			} else {
+				resolve(Lehrerliste)
+			}
+		});
+	})
+
+}
+
 module.exports.UpdateUserPW = function (id, newPW) {
 	return new Promise((resolve, reject) => {
 		bcrypt.genSalt(10, function (err, salt) {
@@ -115,15 +129,21 @@ module.exports.getUserByRole = function (role) {
 }
 
 module.exports.comparePassword = function (candidatePassword, user, callback) {
-	let hash = user.user.password
-	user = user.user;
 	return new Promise((resolve, reject) => {
-		bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
-			if (err) {
-				reject(err)
-			} else {
-				resolve({ isMatch: isMatch, user: user });
-			}
-		});
+		if (user.user){
+			let hash = user.user.password
+			user = user.user;
+
+			bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
+				if (err) {
+					reject(err)
+				} else {
+					resolve({ isMatch: isMatch, user: user });
+				}
+			});
+		}else{
+			reject(new Error("User or Password incorrect"))
+		}
+		
 	})
 }

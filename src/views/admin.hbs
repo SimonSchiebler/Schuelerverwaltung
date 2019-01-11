@@ -4,7 +4,7 @@
             <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                     aria-controls="collapseOne">
-                    Lehrerverwaltung
+                    Userverwaltung
                 </button>
             </h5>
         </div>
@@ -45,7 +45,7 @@
                             <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive"
                                     aria-expanded="true" aria-controls="collapseFive">
-                                    Lehrerliste Verwalten
+                                    Userliste Verwalten
                                 </button>
                             </h5>
                         </div>
@@ -58,10 +58,20 @@
                                         <div class="card" id="{{this._id}}">
                                             <div class="card-header" id="heading{{this._id}}">
                                                 <h5 class="mb-0">
-                                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{this._id}}"
-                                                        aria-expanded="true" aria-controls="collapse{{this._id}}">
-                                                        {{this.username}}
-                                                    </button>
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <button class="btn btn-link" data-toggle="collapse"
+                                                                    data-target="#collapse{{this._id}}" aria-expanded="true"
+                                                                    aria-controls="collapse{{this._id}}">
+                                                                    {{this.username}}
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-sm">
+                                                                <div class="text-right">{{this.rolle}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </h5>
                                             </div>
                                             <div id="collapse{{this._id}}" class="collapse" aria-labelledby="heading{{this._id}}"
@@ -97,8 +107,8 @@
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
-                <form id="certUploadForm" >
-                    Cert: <input  id="certInput" type="file" class="form-control-file" name="cert" /><br>
+                <form id="certUploadForm">
+                    Cert: <input id="certInput" type="file" class="form-control-file" name="cert" /><br>
                     Key: <input id="keyInput" type="file" class="form-control-file" name="key" /><br>
                     <button type="submit" class="btn btn-primary">
                         Upload und Serverrestart

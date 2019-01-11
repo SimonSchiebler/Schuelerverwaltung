@@ -17,8 +17,7 @@ router.route('/login')
     .get(function (req, res, next) {
         res.render('login', { user: req.user ? req.user.username : '' });
     })
-    .post(passport.authenticate('local', { successRedirect: '/lehrer', failureRedirect: '/login', failureFlash: true }), function (req, res, next) {
-        console.log(req.body)
+    .post(passport.authenticate('local', { successRedirect: '/lehrer', failureRedirect: '/login', failureFlash: 'Invalid username or password.' }), function (req, res, next) {
         res.redirect('/lehrer')
     });
 
@@ -30,8 +29,8 @@ passport.use(new LocalStrategy(
     function (username, password, done) {
         User.getUserByUsername(username)
             .then((user) => User.comparePassword(password, user))
-            .then((obj) => { (obj.isMatch) ? done(null, obj.user) : done(null, false, { message: 'Invalid password' }) })
-            .catch((err) => { throw err })
+            .then((obj) => { (obj.isMatch) ? done(null, obj.user) : done(null, false, { message: 'Invalid user or password' }) })
+            .catch((err) => { console.error("Login attempt caused:" + err); done(null, false, { message: 'Invalid user or password' }) })
     }
 ));
 
@@ -59,7 +58,7 @@ router.get('/lehrer', function (req, res, next) {
 
 router.get('/admin', function (req, res) {
     if (req.user && req.user.rolle === 'Admin') {
-        User.getUserByRole('Lehrer')
+        User.getAllUsers('Lehrer')
             .then((Lehrerliste => res.render('admin', { Lehrer: Lehrerliste , user: req.user ? req.user.username : ''})))
             .catch(() => res.render('error', {user: req.user ? req.user.username : ''}))
     } else {
@@ -190,7 +189,12 @@ function schuelerAnlegen(req) {
 router.route('/admin/users/create/')
     .post(function (req, res) {
         if (req.user.rolle === 'Admin') {
-            createLehrer(req.body.username, req.body.password)
+            let newLehrer = new User({
+                username: req.body.username,
+                password: req.body.password,
+                rolle: "Lehrer"
+            })
+            User.createUser(newLehrer)
                 .then(res.send(200))
                 .catch(res.send(520))
         } else {
