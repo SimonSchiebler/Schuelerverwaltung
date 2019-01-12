@@ -1,9 +1,5 @@
-if [ -e Schuelerverwaltung.tar ]
-then
-else
-echo missing Schuelerverwaltung.tar
-echo run buildDockerContainer.sh first
-exit 1
+if ! [ -e Schuelerverwaltung.tar ]
+  then echo missing Schuelerverwaltung.tar && echo run buildDockerContainer.sh first && exit 1
 fi
 
 docker stop mongo
