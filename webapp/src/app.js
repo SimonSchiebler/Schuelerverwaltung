@@ -11,7 +11,7 @@ const expressValidator = require('express-validator')
 const flash = require ('connect-flash')
 const passport = require('passport')
 const mongoose = require('mongoose');
-const Lehrer = require('Lehrer');
+const Lehrer = require('src/models/Lehrer');
 
 const http = require('http');
 const https = require('https');
