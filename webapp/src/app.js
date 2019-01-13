@@ -11,6 +11,7 @@ const expressValidator = require('express-validator')
 const flash = require ('connect-flash')
 const passport = require('passport')
 const mongoose = require('mongoose');
+const Lehrer = require('Lehrer');
 
 const http = require('http');
 const https = require('https');
@@ -33,10 +34,7 @@ const credentials = {key: privateKey, cert: certificate};
 mongoose.connect(`mongodb://${MONGOHOST}/${MONGOSERVICE}`);
 const db = mongoose.connection;
 
-
 const app = express();
-
-
 
 app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'main', layoutsDir: path.join(__dirname,'views', 'layouts')}));
 app.set('views', path.join(__dirname, 'views'));
@@ -86,11 +84,7 @@ app.use(function (req, res, next) {
 
 app.use('/', routes)
 
-app.set('port', (process.env.PORT || 3000))
-
-//app.listen(app.get('port'), function () {
-//    console.log(`Server started on Port ${app.get('port')}`);
-//})
+//app.set('port', (process.env.PORT || 3000))
 
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
@@ -98,8 +92,4 @@ const httpsServer = https.createServer(credentials, app);
 httpServer.listen(8080);
 httpsServer.listen(8443);
 
-//test
-
-//var db = new nodeCouchDb('http://10.1.1.1:5984/_users');
-
-//db.allDocs({include_docs: true}).then(a => console.log(a))
+Lehrer.ensureAdminExists()

@@ -20,9 +20,9 @@ var User = module.exports = mongoose.model('User', LehrerSchema);
 module.exports.createUser = function (newUser) {
 	return new Promise((resolve, reject) => {
 		this.checkIfUserExitst(newUser.username)
-		.then(() => saveUser(newUser))
-		.then(() => resolve())
-		.catch(() => reject())
+			.then(() => saveUser(newUser))
+			.then(() => resolve())
+			.catch(() => reject())
 	})
 }
 
@@ -76,7 +76,7 @@ module.exports.getUserById = function (id) {
 
 module.exports.getAllUsers = function (role) {
 	return new Promise((resolve, reject) => {
-		User.find({ }, (err, Lehrerliste) => {
+		User.find({}, (err, Lehrerliste) => {
 			if (err) {
 				reject(err)
 			} else {
@@ -105,7 +105,7 @@ module.exports.UpdateUserPW = function (id, newPW) {
 
 module.exports.deleteUserById = function (id) {
 	return new Promise((resolve, reject) => {
-		User.deleteOne({_id: id}, (err, user) => {
+		User.deleteOne({ _id: id }, (err, user) => {
 			if (err) {
 				reject()
 			} else {
@@ -129,7 +129,7 @@ module.exports.getUserByRole = function (role) {
 
 module.exports.comparePassword = function (candidatePassword, user, callback) {
 	return new Promise((resolve, reject) => {
-		if (user.user){
+		if (user.user) {
 			let hash = user.user.password
 			user = user.user;
 
@@ -140,8 +140,25 @@ module.exports.comparePassword = function (candidatePassword, user, callback) {
 					resolve({ isMatch: isMatch, user: user });
 				}
 			});
-		}else{
+		} else {
 			reject(new Error("User or Password incorrect"))
 		}
+	})
+}
+
+
+module.exports.ensureAdminExists = function () {
+	return new Promise((resolve, reject) => {
+		this.checkIfUserExitst("admin")
+			.then(() => {
+				let newAdmin = new User({
+					username: "admin",
+					password: "admin",
+					rolle: "Admin"
+				})
+				saveUser(newAdmin)
+			})
+			.then(() => resolve())
+			.catch(() => reject())
 	})
 }
