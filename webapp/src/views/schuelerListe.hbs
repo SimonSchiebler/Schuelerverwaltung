@@ -1,6 +1,7 @@
 <h3>Registrierungscode</h3>
 <h1>{{code}}</h1>
 <h3>Status: {{#if active}}Aktiv{{else}}Inaktiv{{/if}}</h3>
+<a href="/Lehrer/getCodeCsv/{{code}}"><font size="6">Download</font> </a>
 <div id="accordion">
     {{#each schueler}}
     <div class="card">
@@ -11,6 +12,7 @@
                     {{this.vorname}} {{this.nachname}}
                 </button>
                 <button class="btn btn-danger float-right" onclick="delSchueler('{{this._id}}')">Löschen</button>
+                
             </h5>
         </div>
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">

@@ -159,6 +159,6 @@ module.exports.ensureAdminExists = function () {
 				saveUser(newAdmin)
 			})
 			.then(() => resolve())
-			.catch(() => reject())
+			.catch((err) => reject(err))
 	})
 }

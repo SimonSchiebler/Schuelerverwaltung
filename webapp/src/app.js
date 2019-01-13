@@ -93,3 +93,4 @@ httpServer.listen(8080);
 httpsServer.listen(8443);
 
 Lehrer.ensureAdminExists()
+.catch(() => {})

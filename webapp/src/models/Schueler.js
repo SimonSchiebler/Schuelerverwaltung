@@ -92,15 +92,3 @@ module.exports.deleteSchuelerByID = function (schuelerID) {
         User.deleteOne({ _id: schuelerID }, (err) => (err) ? reject(err) : resolve(err))
     })
 }
-
-module.exports.getCsvDataByAnlegeId = function (AnlegeID) {
-    return new Promise((resolve, reject) => {
-        this.getSchuelerByAnlegeID(AnlegeID)
-            .then((schuelerListe) => {
-                resolve (converter.parse(schuelerListe))
-            })
-            .catch((err) => { reject(console.err(err)) })
-    })
-
-
-}

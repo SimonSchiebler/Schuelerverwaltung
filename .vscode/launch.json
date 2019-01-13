@@ -9,8 +9,8 @@
             "type": "node",
             "request": "launch",
             "name": "Programm starten",
-            "cwd": "${workspaceFolder}\\src",
-            "program": "${workspaceFolder}\\src\\app.js"
+            "cwd": "${workspaceFolder}\\webapp\\src",
+            "program": "${workspaceFolder}\\webapp\\src\\app.js"
         }
     ]
 }

@@ -5,7 +5,6 @@
 <h2>Alle Aktiven Registrierungscodes</h2>
 
 
-
 <div class="list-group">
     {{#each anlegeIDs}}
     <a href="/lehrer/code/{{this.anlageID}}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -14,7 +13,9 @@
         </div>
         <p>{{#if this.aktiv}}Aktiv{{else}}Inaktiv{{/if}}</p>
         <p>Einträge: {{#if this.anzahlSchueler}}{{this.anzahlSchueler}}{{else}}0{{/if}}</p>
+
         <p class="mb-1">Angelegt durch {{this.angelegtDurch}}</p>
+
     </a>
     {{/each}}
 </div>
