@@ -286,10 +286,25 @@ router.route('/admin/certificate')
 
 router.route('/admin/shutdown')
     .post(function (req, res) {
-        if(req.user === 'Admin'){
+        if(req.user.rolle === 'Admin'){
             setTimeout(() => {
                 process.exit(0)
             }, 5000);
+        }
+    })
+
+router.route('/Lehrer/getCodeCsv/:id')
+    .get(function (req, res) {
+        if(req.user.rolle === 'Admin'){
+            Schueler.getCsvDataByAnlegeId(req.params.id)
+            .then((csvData) => {
+                res.setHeader('Content-Length', csvData.length);
+                res.write(csvData, 'binary');
+                res.end();
+            })
+            .catch(() => res.redirect('/error'))
+        }else{
+            res.redirect('/login')
         }
     })
 
