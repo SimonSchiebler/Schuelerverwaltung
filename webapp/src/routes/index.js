@@ -355,7 +355,7 @@ router.route('/Lehrer/getCodeCsv/:id')
                 .then((Schuelerliste) => {
                     Schuelerliste.forEach(schueler => {
                         delete schueler.anlegeID
-                        schueler.SCHUELER_VORBILDUNG = schueler.SCHUELER_VORBILDUNG.join('')
+                        schueler.SCHUELER_VORBILDUNG = schueler.SCHUELER_VORBILDUNG.join(',')
                     });
                     const csvData = converter.parse(Schuelerliste)
                     res.setHeader('Content-Length', csvData.length);
