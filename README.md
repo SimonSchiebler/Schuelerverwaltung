@@ -1,5 +1,5 @@
 # what is the Schuelerverwaltung Project?
-This full stack Application will be used inside the HSS (hubert Sternberg Schule) School to facilitate the registration process for new students. 
+This full stack Application is a candidate project for a competition at the HSS (hubert Sternberg Schule) School intended to facilitate the registration process for new students. 
 Students will be able to enter their private information needed for the registration and teachers will be able to review and export that data for further processing by the schools secretary. 
 
 Students gain permission to provide their data with an registration code that they obtain from a teacher. 
