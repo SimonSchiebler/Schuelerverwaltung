@@ -29,7 +29,7 @@
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
-    "jsdom": "^12.1.0",
+    "jsdom": "^16.5.0",
     "json2csv": "^4.3.3",
     "mongoose": "^5.3.11",
     "morgan": "^1.9.1",
